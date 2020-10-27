@@ -1,8 +1,9 @@
 
 #include <math.h>
 #include "mandelbrot.h"
+#include <stdio.h>
 
-char    get_mandelbrot_pixel(t_palette palette, double x, double y, double zoom)
+t_pixel    get_mandelbrot_pixel(t_palette2 *palette, double x, double y, double zoom)
 {
     (void)zoom;
     int iterations = 0;
@@ -17,18 +18,18 @@ char    get_mandelbrot_pixel(t_palette palette, double x, double y, double zoom)
 
         if (abs_d(x + y) > M_INFINITY)    
         {
-            int brightness = (int)map_d(iterations - logf(log2f(abs_d(x + y))), 0, MAX_ITERATIONS  / (MAX_ITERATIONS / 32), 0, palette_len(palette));
-            if (palette && palette[brightness] > 32)
-                return (palette[brightness % palette_len(palette)]);
+            int brightness = (int)map_d(iterations - logf(log2f(abs_d(x + y))), 0, MAX_ITERATIONS  / (MAX_ITERATIONS / 32), 0, palette->len);
+            if (palette && brightness < (int)palette->len && brightness >= 0)
+                return (palette->pixels[brightness % palette->len]);
             else
-                return ('.');
+                return (palette->pixels[0]);
         }
         iterations++;
     }
-    return (' ');
+    return (palette->pixels[palette->len - 1]);
 }
 
-void    mandelbrot(t_ascreen *screen, t_palette palette, double xoffset, double yoffset, double zoom)
+void    mandelbrot(t_ascreen *screen, t_palette2 *palette, double xoffset, double yoffset, double zoom)
 {
     int x = 0, y = 0;
 
@@ -42,6 +43,7 @@ void    mandelbrot(t_ascreen *screen, t_palette palette, double xoffset, double 
             screen->pixels[x + y * screen->size_x] = get_mandelbrot_pixel(palette, mx, my, zoom);
             x++;
         }
+        screen->pixels[screen->size_x - 1 + y *screen->size_x] = (t_pixel){ .value = ENDL };
         y++;
     }
 }

@@ -25,3 +25,12 @@ double  log2_d(double d)
 {
     return (d * d);
 }
+
+unsigned int    ft_strlen(char *str)
+{
+    unsigned int len = 0;
+
+    while (str[len])
+        len++;
+    return (len);
+}

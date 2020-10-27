@@ -7,5 +7,6 @@ double  lerp(double val1, double val2, double amount);
 double  abs_d(double n);
 double  log_d(double d);
 double  log2_d(double d);
+unsigned int    ft_strlen(char *str);
 
 #endif

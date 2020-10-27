@@ -11,13 +11,13 @@ BIN_DIR=bin
 OBJS=$(SRCS:%.c=$(BIN_DIR)/%.o)
 HEADERS=$(addprefix $(INC_DIR)/, $(INCLUDES))
 
-CFLAGS=-Werror -Wextra -Wall
+CFLAGS=-Werror -Wextra -Wall# -g3 -fsanitize=address
 
 all: $(NAME)
 	@echo Done.
 
 $(NAME) : $(BIN_DIR) $(OBJS)
-	@gcc -o $@ $(OBJS) -lm
+	@gcc -o $@ $(OBJS) -lm -g3 #-fsanitize=address
 	@echo "linked project : $(NAME)"
 
 $(BIN_DIR) :
