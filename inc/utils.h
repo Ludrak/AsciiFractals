@@ -3,7 +3,6 @@
 # define UTILS_H
 
 #include <unistd.h>
-//#include <sys/time.h>
 
 #define BUFFER_LEN 8
 
@@ -13,8 +12,10 @@ double          abs_d(double n);
 unsigned int    ft_strlen(char *str);
 void            ft_putstr(char *str);
 int             request_input(char buffer[BUFFER_LEN]);
-//void            ft_usleep(int ms);
 void            *ft_memcpy(void *dst, const void *src, size_t n);
+int             ft_atoi(const char *nptr);
+int             ft_strncmp(const char *s1, const char *s2, size_t len);
+
 
 # define MAX(X, Y) ((X < Y) ? Y : X)
 # define MIN(X, Y) ((X > Y) ? Y : X)

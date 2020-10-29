@@ -10,6 +10,11 @@
 # define MAX_ITERATIONS 100000
 # define M_INFINITY     20000
 
+extern int      RES[2];
+extern int      MAX_ITER;
+extern double   DEF_X[2];
+extern double   DEF_Y[2];
+
 # include "ascii_screen.h"
 
 t_pixel         get_julia_pixel(t_palette *palette, double x, double y, double c, double ci);

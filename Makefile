@@ -1,5 +1,5 @@
 
-NAME=mandelbrot.out
+NAME=ascii_fractals
 
 SRC_DIR=src
 SRCS=main.c ascii_screen.c ascii_palette.c mandelbrot.c julia.c utils.c math.c

@@ -3,6 +3,12 @@
 #include "ascii_screen.h"
 #include "fractals.h"
 #include <time.h>
+ 
+int      RES[2] = {80, 40};
+double   DEF_X[2] = {-2, 2};
+double   DEF_Y[2] = {-2, 2};
+int      MAX_ITER = 10000;
+
 
 static void exec_mandelbrot(t_palette *palette, float zoom_factor, double x, double y)
 {
@@ -10,7 +16,23 @@ static void exec_mandelbrot(t_palette *palette, float zoom_factor, double x, dou
     float zoom = 1.3f;
     long      actual_ms, target_ms;
 
-    create_screen(&screen, 80, 40);
+    create_screen(&screen, RES[0], RES[1]);
+    double max = MAX(screen->size_x / 2, screen->size_y);
+    double min = MIN(screen->size_x / 2, screen->size_y);
+    if (max == screen->size_x / 2)
+    {
+        DEF_X[0] = -2;
+        DEF_X[1] =  2;
+        DEF_Y[0] = -2 * (min / max);
+        DEF_Y[1] =  2 * (min / max);
+    }
+    else
+    {
+        DEF_X[0] = -2 * (min / max);
+        DEF_X[1] =  2 * (min / max);
+        DEF_Y[0] = -2;
+        DEF_Y[1] =  2;
+    }
     while (1)
     {
         target_ms = clock() + FRAME_TIME_MS;
@@ -34,7 +56,23 @@ static void exec_julia(t_palette *palette, float zoom_factor, double x, double y
     float       iterator = 0, m_c = 0, m_ci = 0.5f, zoom = 1.3f;
     long        actual_ms, target_ms;
 
-    create_screen(&screen, 80, 40);
+    create_screen(&screen, RES[0], RES[1]);
+    double max = MAX(screen->size_x / 2, screen->size_y);
+    double min = MIN(screen->size_x / 2, screen->size_y);
+    if (max == screen->size_x / 2)
+    {
+        DEF_X[0] = -2;
+        DEF_X[1] =  2;
+        DEF_Y[0] = -2 * (min / max);
+        DEF_Y[1] =  2 * (min / max);
+    }
+    else
+    {
+        DEF_X[0] = -2 * (min / max);
+        DEF_X[1] =  2 * (min / max);
+        DEF_Y[0] = -2;
+        DEF_Y[1] =  2;
+    }
     while (1)
     {
         target_ms = clock() + FRAME_TIME_MS;
@@ -153,13 +191,49 @@ static void    julia_menu(int preset_id)
 }
 
 
+#include <stdio.h>
 
-int     main(void)
+int     main(int ac, char **av)
 {
     char        input_buffer[BUFFER_LEN];
     int         fractal_id = 0;
     int         preset_id = 0;
+    int         arg_it = 1;
 
+
+    if (ac > 1)
+    {
+        while (arg_it < ac)
+        {
+            if (ft_strncmp(av[arg_it], "res=", 4) == 0)
+            {
+                RES[0] = ft_atoi(av[arg_it] + 4) * 2;
+                while (av[arg_it] && *(av[arg_it] - 1) != 'x')
+                    av[arg_it]++;
+                RES[1] = ft_atoi(av[arg_it]);
+                if (RES[0] <= 0 || RES[1] <= 0)
+                {
+                    ft_putstr("Invalid resolution parameters.\n");
+                    return (-1);
+                }
+            }
+            else if (ft_strncmp(av[arg_it], "max_iter=", 9) == 0)
+            {
+                MAX_ITER = ft_atoi(av[arg_it] + 9);
+                if (MAX_ITER <= 0)
+                {
+                    ft_putstr("Iterations cannot be zero or negative.\n");
+                    return (-1);
+                }
+            }
+            else
+            {
+                ft_putstr("Invalid input parameters. Exit.\n");
+                return (-1);
+            }
+            arg_it++;
+        }
+    }
     write(1, CLR_ANSI, sizeof(CLR_ANSI));
     ft_putstr(">>> Bienvenue sur Ascii Fractals !\nQuelles fractales souhaite tu realiser ? (Mandelbrot: 1, Julia: 2)\n");
     while (request_input(input_buffer))

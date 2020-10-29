@@ -41,26 +41,51 @@ int            request_input(char buffer[BUFFER_LEN])
     return (-1);
 }
 
-/*
-
-void            ft_usleep(int ms)
+int     ft_strncmp(const char *s1, const char *s2, size_t len)
 {
-    struct timeval  spec;
-    long            actual_ms;
-    long            target_ms;
+        while (*s1 && *s2 && *s1 == *s2 && len--)
+        {
+                s1++;
+                s2++;
+        }
+        return ((len == 0) ? 0 : (unsigned char)*s1 - *s2);
+}
 
-    gettimeofday(&spec, NULL);
-    actual_ms = (long)spec.tv_usec / 1000;
-    target_ms = actual_ms + ms;
-    while (1)
-    {
-        gettimeofday(&spec, NULL);
-        actual_ms = (long)spec.tv_usec / 1000;
-        if (actual_ms >= target_ms)
-            break;
-    }
-}*/
+static int      ft_isdigit(int c)
+{
+        if (c >= '0' && c <= '9')
+                return (1);
+        return (0);
+}
 
+static int      ft_isspace(char c)
+{
+        return (c == ' ' || (c >= '\t' && c <= '\r'));
+}
+
+int                     ft_atoi(const char *nptr)
+{
+        int                             sign;
+        unsigned long   num;
+        unsigned long   max;
+
+        sign = 1;
+        num = 0;
+        while (ft_isspace(*nptr))
+                nptr++;
+        if (*nptr == '-' || *nptr == '+')
+        {
+                if (*nptr == '-')
+                        sign = -1;
+                nptr++;
+        }
+        max = sign < 0 ? 9223372036854775808UL : 9223372036854775807L;
+        while (ft_isdigit(*nptr))
+                num = (10 * num) + (*nptr++ - '0');
+        if (num > max)
+                return (sign < 0 ? 0 : -1);
+        return (num * sign);
+}
 
 void    *ft_memcpy(void *dst, const void *src, size_t n)
 {

@@ -27,7 +27,7 @@ void    print_screen(const t_ascreen *screen)
 {
     if (!screen || !screen->data)
         return ;
-    write(1, screen->data, screen->screen_sz);//(screen->size_x * screen->size_y) * sizeof(*screen->data) + screen->header_sz);
+    write(1, screen->data, screen->screen_sz);
 }
 
 void    destroy_screen(t_ascreen *screen)

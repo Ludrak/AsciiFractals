@@ -6,15 +6,18 @@
 
 *=====================================================================================================*
 
-### Ascii fractals est un projet developpe dans le cadre du concours du serveur discord Le Coin des Developpeurs.
+### Ascii fractals est un projet developpe dans le cadre du concours du serveur discord 
+### Le Coin des Developpeurs.
 
 #   -> Qu'est ce que c'est ?
-### Ascii fractals est un programme qui vous permettera de generer des fractales (Actuellement le Mandelbrot set
-### et le Julia set) et d'effectuer une colorisation dessus + des zooms.
+### Ascii fractals est un programme qui vous permettera de generer des fractales 
+### (Actuellement le Mandelbrot set et le Julia set) et d'effectuer 
+### une colorisation + des zooms.
 
 #   -> Fractales ?
-### Si vous ne conaissez pas les fractales, ce sont les algorithmes mathematiques bases sur l'iteration d'une,
-### suite complexe. L'ecran represente le plan complexe et chaque couleur de pixel est definie grace a l'iteration ### de la suite :
+### Si vous ne conaissez pas les fractales, ce sont les algorithmes mathematiques bases sur 
+### l'iteration d'une suite complexe. L'ecran represente le plan complexe et chaque couleur 
+### de pixel est definie grace a l'iteration de la suite :
 ### {
 ###   Z0 = 0
 ###   Zn+1 = Zn^2 + c
@@ -28,11 +31,12 @@
 ### gagner desFPS, mais cela baissera votre qualite de rendu (je recommande de ne jamais aller en dessous de 1000 iterations)
 ### Si vous voyez le rendu se "pixeliser" apres un fort zoom, cela veux dire que le nombre d'iterations
 ### est trop bas par rapport au zoom effectue.
-### Vous pouvez aussi augmenter vos FPS en changeant la resolution de l'ecran avec ./ascii_fractals res=<sx>x<sy>, ### mais l'ecran etant en ASCII cela risque de vite baisser la precision.
+### Vous pouvez aussi augmenter vos FPS en changeant la resolution de l'ecran avec ./ascii_fractals res=<sx>x<sy>, ### mais l'ecran etant en ASCII cela risque de vite baisser la precision. (un caractere etant 2x plus haut que 
+### large, la resolution 30x30 sera en realite egale a 60x30. cela est pris en compte par le programme.)
 ### Du fait des restrictions de libs pour le projet, ncurses n'a pas pu etre utilise pour un rendu plus propre,
 ### je recommande donc de lancer le programme dans un terminal assez grand (fullscreen recommande) pour un 
 ### affichage correct.
-### Resolutions recomandees: 80x40 (default), 160x80, 300x80
+### Resolutions recomandees: 40x40 (default), 80x80, 150x80
 
 #   -> Requirements
 ### Le programme a besoin des packages suivants pour fonctionner : gcc ; make
@@ -49,6 +53,13 @@
 ### Pour arreter la simulations, faites Ctrl+C et ca vous affichera un menu,
 ### vous demandant si vous voulez quitter le programme, ou executer une autre fractale.
 
+#   -> Quelques tips !
+### Ici je vais vous parler de mes presets favoris et surtout comment en tirer tout leur potentiel :)
+### Pour tout les preset a zoom statique, vous pouvez utiliser une resolution assez faible (~100)
+### ce qui va monter grandement vos FPS tout en gardant la qualite car on ne zoom pas sur l'image.
+### (Surtout pour le preset 3 du Julia set a tester absolument.)
+### pour le mandelbrot, je trouve interessant de le charger en mode paysage avec une resolution de
+### 100x80 a 160x80 si vous n'avez pas peur du lag :_
 
 #   -> Details techniques
 ### Le programme a ete code en pure C en utilisant aucune lib externe. Les seuls fonction/syscalls utilises 
