@@ -8,17 +8,19 @@
 # define MULTI_J        -100
 
 # define MAX_ITERATIONS 100000
-# define M_INFINITY     20000
+# define M_INFINITY     200000
 
-extern int      RES[2];
-extern int      MAX_ITER;
-extern double   DEF_X[2];
-extern double   DEF_Y[2];
+extern int          RES[2];
+extern int          MAX_ITER;
+extern long double  DEF_X[2];
+extern long double  DEF_Y[2];
 
+# include <time.h>
+# include <signal.h>
 # include "ascii_screen.h"
 
-t_pixel         get_julia_pixel(t_palette *palette, double x, double y, double c, double ci);
-t_pixel         get_mandelbrot_pixel(t_palette *palette, double x, double y);
+t_pixel         get_julia_pixel(t_palette *palette, long double x, long double y, double c, double ci);
+t_pixel         get_mandelbrot_pixel(t_palette *palette, long double x, long double y);
 
 /*
 **  MANDELBROT
@@ -28,6 +30,8 @@ t_pixel         get_mandelbrot_pixel(t_palette *palette, double x, double y);
 **  zoom is the zoom factor.
 */
 void            mandelbrot(t_ascreen *screen, t_palette *palette, double xoffset, double yoffset, double zoom);
+void            exec_mandelbrot(t_palette *palette, float zoom_factor, double x, double y);
+
 
 /*
 **  JULIA
@@ -35,5 +39,6 @@ void            mandelbrot(t_ascreen *screen, t_palette *palette, double xoffset
 **  adds the julia complex variable c = a + bi where c = a and ci = bi
 */
 void            julia(t_ascreen *screen, t_palette *palette, double xoffset, double yoffset, double c, double ci, double zoom);
+void            exec_julia(t_palette *palette, float zoom_factor, double x, double y, double c, double ci);
 
 #endif

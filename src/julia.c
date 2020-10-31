@@ -1,7 +1,7 @@
 
 #include "fractals.h"
 
-t_pixel    get_julia_pixel(t_palette *palette, double x, double y, double c, double ci)
+t_pixel    get_julia_pixel(t_palette *palette, long double x, long double y, double c, double ci)
 {
     int iterations = 0;
     double x_square, y_square;
@@ -35,8 +35,8 @@ void    julia(t_ascreen *screen, t_palette *palette, double xoffset, double yoff
         x = 0;
         while (x < screen->size_x)
         {
-            double mx = map_d(x, 0, screen->size_x, DEF_X[0] / zoom, DEF_X[1] / zoom) + xoffset;
-            double my = map_d(y, 0, screen->size_y, DEF_Y[0] / zoom, DEF_Y[1] / zoom) - yoffset;
+            long double mx = map_d(x, 0, screen->size_x, DEF_X[0] / zoom, DEF_X[1] / zoom) + xoffset;
+            long double my = map_d(y, 0, screen->size_y, DEF_Y[0] / zoom, DEF_Y[1] / zoom) - yoffset;
             screen->pixels[x + y * screen->size_x] = get_julia_pixel(palette, mx, my, c, ci);
             x++;
         }

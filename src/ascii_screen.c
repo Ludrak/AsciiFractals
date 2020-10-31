@@ -1,7 +1,7 @@
 
 #include "ascii_screen.h"
 
-#include <string.h>
+//#include <string.h>
 int     create_screen(t_ascreen **screen, uint16_t sx, uint16_t sy)
 {
     static const char   header[64] = CLR_ANSI" > ASCII FRACTALS  -  by Ludrak\n";

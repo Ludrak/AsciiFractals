@@ -6,7 +6,7 @@
 
 #define BUFFER_LEN 8
 
-double          map_d(double value, double smin, double smax, double emin, double emax);
+long double     map_d(long double value, long double min1, long double max1, long double min2, long double max2);
 double          lerp(double val1, double val2, double amount);
 double          abs_d(double n);
 unsigned int    ft_strlen(char *str);

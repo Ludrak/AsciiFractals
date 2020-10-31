@@ -1,7 +1,7 @@
 
 #include "utils.h"
 
-double  map_d(double value, double min1, double max1, double min2, double max2)
+long double  map_d(long double value, long double min1, long double max1, long double min2, long double max2)
 {
     return (min2 + (value - min1) * (max2 - min2) / (max1 - min1));
 }

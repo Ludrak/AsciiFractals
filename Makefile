@@ -2,7 +2,7 @@
 NAME=ascii_fractals
 
 SRC_DIR=src
-SRCS=main.c ascii_screen.c ascii_palette.c mandelbrot.c julia.c utils.c math.c
+SRCS=main.c ascii_screen.c ascii_palette.c mandelbrot.c julia.c utils.c math.c executor.c
 
 INC_DIR=inc
 INCLUDES=mandelbrot.h utils.h ascii_screen.h
@@ -17,7 +17,7 @@ all: $(NAME)
 	@echo Done.
 
 $(NAME) : $(BIN_DIR) $(OBJS)
-	@gcc -o $@ $(OBJS)
+	@gcc -o $@ $(OBJS) -lm
 	@echo "linked project : $(NAME)"
 
 $(BIN_DIR) :

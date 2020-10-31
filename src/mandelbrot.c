@@ -1,8 +1,8 @@
 
 #include <math.h>
 #include "fractals.h"
-
-t_pixel    get_mandelbrot_pixel(t_palette *palette, double x, double y)
+#include <math.h>
+t_pixel    get_mandelbrot_pixel(t_palette *palette, long double x, long double y)
 {
     int iterations = 0;
     double x_square, y_square, x0 = x, y0 = y;
@@ -21,7 +21,21 @@ t_pixel    get_mandelbrot_pixel(t_palette *palette, double x, double y)
                 return (palette->pixels[brightness % palette->len]);
             else
                 return (palette->pixels[0]);
-        }
+
+            //const double thickness_factor = 0.02f;
+           // const double pixel_size = 0.1f;
+
+            //double rqs = sqrt(x*x + y*y);
+            //if (rqs * (pow(log(rqs), 2)) < sqrt())
+            // rsq = squared_modulus(z)
+            // # the test below is equivalent to testing d_n < thickness_factor*pixel_size
+            // # d_n is defined in the text above this code snippet
+            // # x**y means x to the power y
+            // if rsq*(log(rsq)**2) < squared_modulus(thickness_factor*pixel_size*der_c) :
+            // p.color = boundary_color
+            // else:
+            // p.color = outside_color
+                }
         iterations++;
     }
     return ((t_pixel){ .value=BLACK"#" });
@@ -36,8 +50,8 @@ void    mandelbrot(t_ascreen *screen, t_palette *palette, double xoffset, double
         x = 0;
         while (x < screen->size_x)
         {
-            double mx = map_d(x, 0, screen->size_x, DEF_X[0] / zoom, DEF_X[1] / zoom) + xoffset;
-            double my = map_d(y, 0, screen->size_y, DEF_Y[0] / zoom, DEF_Y[1] / zoom) - yoffset;
+            long double mx = map_d(x, 0, screen->size_x, DEF_X[0] / zoom, DEF_X[1] / zoom) + xoffset;
+            long double my = map_d(y, 0, screen->size_y, DEF_Y[0] / zoom, DEF_Y[1] / zoom) - yoffset;
             screen->pixels[x + y * screen->size_x] = get_mandelbrot_pixel(palette, mx, my);
             x++;
         }
