@@ -43,15 +43,20 @@ typedef struct  s_palette2
 #define HWHITE      "\e[0;97m"
 
 t_palette      *make_palette(char *ascii, t_pixel *colors, size_t len);
+void            palette_free(t_palette *palette);
 
-# define GRAYSCALE_P        0
-# define RAINBOW_P          1
-# define BLUE_MAGENTA_P     2
-# define BLUE_WHITE_P       3
-# define BLACK_MAGENTA_P    4
-# define RED_YELLOW_P       5
-# define YELLOW_P           6
-//# define RAINBOW_P         10
+
+# define GRAYSCALE_P            0
+# define RAINBOW_P              1
+# define BLUE_MAGENTA_P         2
+# define BLUE_WHITE_P           3
+# define BLACK_MAGENTA_P        4
+# define RED_YELLOW_P           5
+# define YELLOW_P               6
+# define BLACK_RAINBOW_P        7
+# define RED_YELLOW_GREEN_P     8
+# define BLUE_RED_P             9
+
 t_palette      *load_palette(int palette_ID);
 
 #endif

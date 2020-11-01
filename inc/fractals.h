@@ -7,7 +7,7 @@
 
 # define MULTI_J        -100
 
-# define MAX_ITERATIONS 100000
+# define MAX_ITERATIONS 100
 # define M_INFINITY     200000
 
 extern int          RES[2];
@@ -16,8 +16,14 @@ extern long double  DEF_X[2];
 extern long double  DEF_Y[2];
 
 # include <time.h>
-# include <signal.h>
 # include "ascii_screen.h"
+
+typedef struct  s_fract_engine
+{
+    t_palette   *palette;
+
+}               t_fract_engine;
+
 
 t_pixel         get_julia_pixel(t_palette *palette, long double x, long double y, double c, double ci);
 t_pixel         get_mandelbrot_pixel(t_palette *palette, long double x, long double y);

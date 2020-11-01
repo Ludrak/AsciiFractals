@@ -1,75 +1,59 @@
-    ___                    _     _            ______                          __             __        
-   /   |   _____  _____   (_)   (_)          / ____/   _____  ____ _  _____  / /_  ____ _   / /   _____
-  / /| |  / ___/ / ___/  / /   / /          / /_      / ___/ / __ `/ / ___/ / __/ / __ `/  / /   / ___/
- / ___ | (__  ) / /__   / /   / /          / __/     / /    / /_/ / / /__  / /_  / /_/ /  / /   (__  ) 
-/_/  |_|/____/  \___/  /_/   /_/          /_/       /_/     \__,_/  \___/  \__/  \__,_/  /_/   /____/  
 
-*=====================================================================================================*
+# ASCII FRACTALS
 
-### Ascii fractals est un projet developpe dans le cadre du concours du serveur discord 
-### Le Coin des Developpeurs.
 
-#   -> Qu'est ce que c'est ?
-### Ascii fractals est un programme qui vous permettera de generer des fractales 
-### (Actuellement le Mandelbrot set et le Julia set) et d'effectuer 
-### une colorisation + des zooms.
+> ## Index
+>
+> - ##### *Compiler + executer*
+> - ##### *Fractales ?*
+> - ##### *Details techniques*
 
-#   -> Fractales ?
-### Si vous ne conaissez pas les fractales, ce sont les algorithmes mathematiques bases sur 
-### l'iteration d'une suite complexe. L'ecran represente le plan complexe et chaque couleur 
-### de pixel est definie grace a l'iteration de la suite :
-### {
-###   Z0 = 0
-###   Zn+1 = Zn^2 + c
-### }
-### (plus d'infos sur : https://en.wikipedia.org/wiki/Mandelbrot_set)
+> ## Compiler + Executer
+>
+> ### I - Compiler
+> ##### Pour compiler le projet, tapez simplement "make" dans le terminal. Le projet fonctionne sous Linux, des erreurs de compilation peuvent survenir lors de la compilation sous windows, dans ce cas, essayez de compiler sous le WSL2 (https://docs.microsoft.com/en-us/windows/wsl/install-win10).
+>
+> ### II - Executer
+>> #### ./ascii_fractals 
+> ##### Pour executer le projet en mode default
+>> #### ./ascii_fractals res=\<number>x\<number> 
+>> ##### (default is 20x20)
+> ##### Pour definir la resolution de l'ecran en caracteres ascii. (notez que la taille d'un caractere standart est 2 fois plus haute que large, une resolution de 30x30 sera donc traitee comme 60x30)
+> ##### Configurations recomandees: 30x30 50x50 75x75 100x75 130x90
+> ###### (la libncurses etant interdite par le concours, lancez une resolution plus petite que celle de votre terminal pour eviter des erreurs d'affichage, je recommande de le lancer en fullscreen en baissant la taille de police pour utiliser les profils > 75x75 donnant de bien meilleurs resultats)
+>> #### ./ascii_fractals max_iter=\<number>
+>> ##### (default is 100)
+> ##### Pour definir le nombre d'iterations maximum par pixel. (Voir: Fractales ?)
+> ##### Iterations Recomandees: default 300 500 1000 5000 + (attention au lag !)
+> 
+> ##### Bien evidement, ces deux options sont combinables.
 
-### Notez que generer des fractales est couteux en ressources du fait des nombreuses iterations par pixel
-### indispensables a la generation de celles ci. Si le programme est trop lent, il est possible de changer le
-### nombre d'iterations max en le lancant avec ./ascii_fractals max_it=<max-iterations>, de base, le maximum 
-### d'iterations par pixel est de 10000, vous pouvez l'augmenter pour gagner de la precision, ou le baisser pour 
-### gagner desFPS, mais cela baissera votre qualite de rendu (je recommande de ne jamais aller en dessous de 1000 iterations)
-### Si vous voyez le rendu se "pixeliser" apres un fort zoom, cela veux dire que le nombre d'iterations
-### est trop bas par rapport au zoom effectue.
-### Vous pouvez aussi augmenter vos FPS en changeant la resolution de l'ecran avec ./ascii_fractals res=<sx>x<sy>, ### mais l'ecran etant en ASCII cela risque de vite baisser la precision. (un caractere etant 2x plus haut que 
-### large, la resolution 30x30 sera en realite egale a 60x30. cela est pris en compte par le programme.)
-### Du fait des restrictions de libs pour le projet, ncurses n'a pas pu etre utilise pour un rendu plus propre,
-### je recommande donc de lancer le programme dans un terminal assez grand (fullscreen recommande) pour un 
-### affichage correct.
-### Resolutions recomandees: 40x40 (default), 80x80, 150x80
 
-#   -> Requirements
-### Le programme a besoin des packages suivants pour fonctionner : gcc ; make
-### Et a ete programme pour fonctionner sur Linux (de preference x64)
-### Je recommande de le lancer sur un PC ayant une certaine puissance de calcul
-### Pour obtenir des resultats satisfaisants.
-### Ma config :
-### - i5 5700k, 16G ram
+> ## Fractales ?
+> 
+> ##### Les fractales sont des objects mathematiques, dont la structure se repete indefiniment. Ce programe inclus 2 des plus connues d'entre elles : le Mandelbrot set et le Julia set.
+> ##### Elles sont issues de l'iteration de la suite *Zn+1 = Zn^2 + c*, ou *Z0 = 0*, sur le plan complexe,
+> ##### represente ici par un ecran ou Re=X et Im=Y.
+> ##### Dans le mandelbrot set, C est un complexe representant la position sur le plan complexe, qui sera donc du type (x + yi).
+> ##### Dans le julia set, C represente la position + une constante complexe, par consequent, le julia set peux se retrouver a de multiples reprises dans le mandelbrot.
+> ##### La couleur de chaque pixel dependra du resultat de Z apres un nombre donne d'iterations. Si Z > INFINI (infini fixe a 200000), alors le pixel ne fais pas partie du set, on calcule alors la couleur grace au nombre d'iterations effectuees pour atteindre l'infini. Dans le cas ou Z depasse le nombre fixe d'iterations, le point fais partie du set et sera colore en noir. Ce sont donc ces points la qui sont les plus long a calculer car ils demandent d'atteindre le maximum d'iterations.
 
-#   -> How to use
-### Pour la compilation, tapez : make (ce qui va creer un executable ascii_fractals)
-### Il suffit de lancer le programme (./ascii_fractals), choisir sa fractale avec les 
-### options 1 et 2 (Mandelbrot ou Julia) et de choisir un preset de colorisation. 
-### Pour arreter la simulations, faites Ctrl+C et ca vous affichera un menu,
-### vous demandant si vous voulez quitter le programme, ou executer une autre fractale.
+> ## Details Techniques
+>
+> ##### Le programme a ete code en pure c en utilisant aucune librairie sauf quelques fonctions indispensables de la libc.
+> #### Les syscalls / fonctions utilises dans ce programme sont :
+> - read ()  (Utilise pour lire une input, sur l'entree standard) 
+> - write () (Utilise pour ecrire sur l'entree standart) 
+> - malloc () (Allocation memoire) 
+> - free () (Liberation memoire) 
+> - fcntl () (Utilise pour la modification des flags de file descriptor, permettant a read() de lire sur un fd non blocant ) 
+> - clock () (Utilise pour obtenir le temps de processus, et caper les FPS)
+> - exit () (Utilise pour terminer le process)
 
-#   -> Quelques tips !
-### Ici je vais vous parler de mes presets favoris et surtout comment en tirer tout leur potentiel :)
-### Pour tout les preset a zoom statique, vous pouvez utiliser une resolution assez faible (~100)
-### ce qui va monter grandement vos FPS tout en gardant la qualite car on ne zoom pas sur l'image.
-### (Surtout pour le preset 3 du Julia set a tester absolument.)
-### pour le mandelbrot, je trouve interessant de le charger en mode paysage avec une resolution de
-### 100x80 a 160x80 si vous n'avez pas peur du lag :_
 
-#   -> Details techniques
-### Le programme a ete code en pure C en utilisant aucune lib externe. Les seuls fonction/syscalls utilises 
-### sont celles ci :
-### - read   (syscall: lire un fd (dans ce cas stdin) )
-### - write  (syscall: ecrire sur un fd (dans ce cas stdout) )
-### - malloc (syscall: allocation memoire)
-### - free   (syscall: liberation memoire)
-### - signal (syscall: catch un signal (Utilise uniquement dans le but de catch "Ctrl+C") )
-### - clock  (function: recupere les donnees du temps, au moment du call (Utilise pour capper les FPS) )
-
-##### Note: L'utilisation de signal n'etais pas voulue au depart mais c'etais l'option la plus bas niveau
-##### qui existe car rendre read() non blocant necessite les fonctions fork() fcntl() select() ou poll().
+> ### Informations
+>
+> ##### Ascii Fractals est un projet developpe pour le concours du serveur discord Le Coin Des Developpeurs
+>
+> ###### Author: Ludrak
+> ###### Released: 31/10/2020

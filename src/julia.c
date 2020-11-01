@@ -15,8 +15,8 @@ t_pixel    get_julia_pixel(t_palette *palette, long double x, long double y, dou
 
         if (abs_d(x + y) > M_INFINITY)    
         {
-            int brightness = (int)map_d(iterations - log_d((double)msb(abs_d(x + y))), 0, MAX_ITERATIONS  / (MAX_ITERATIONS / 32), 0, palette->len);
-            if (palette && brightness < (int)palette->len && brightness >= 0)
+            int brightness = (int)map_d(iterations - log_d((double)msb(abs_d(x + y))), 0, palette->len, 0, palette->len);
+            if (palette && brightness >= 0)
                 return (palette->pixels[brightness % palette->len]);
             else
                 return (palette->pixels[0]);

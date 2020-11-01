@@ -16,26 +16,12 @@ t_pixel    get_mandelbrot_pixel(t_palette *palette, long double x, long double y
 
         if (abs_d(x + y) > M_INFINITY)    
         {
-            int brightness = (int)map_d(iterations - log_d((double)msb(abs_d(x + y))), 0, MAX_ITERATIONS  / (MAX_ITERATIONS / 32), 0, palette->len);
+            int brightness = (int)map_d(iterations - log_d((double)msb(abs_d(x + y))), 0, MAX_ITER  / (MAX_ITER / 32), 0, palette->len);
             if (palette && brightness >= 0)
                 return (palette->pixels[brightness % palette->len]);
             else
                 return (palette->pixels[0]);
-
-            //const double thickness_factor = 0.02f;
-           // const double pixel_size = 0.1f;
-
-            //double rqs = sqrt(x*x + y*y);
-            //if (rqs * (pow(log(rqs), 2)) < sqrt())
-            // rsq = squared_modulus(z)
-            // # the test below is equivalent to testing d_n < thickness_factor*pixel_size
-            // # d_n is defined in the text above this code snippet
-            // # x**y means x to the power y
-            // if rsq*(log(rsq)**2) < squared_modulus(thickness_factor*pixel_size*der_c) :
-            // p.color = boundary_color
-            // else:
-            // p.color = outside_color
-                }
+        }
         iterations++;
     }
     return ((t_pixel){ .value=BLACK"#" });

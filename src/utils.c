@@ -34,12 +34,25 @@ int            request_input(char buffer[BUFFER_LEN])
 {
     int nbytes;
 
-    ft_putstr("> ");
+    ft_putstr("\033[0m-\033[1;36m> \033[1;37m");
     if ((nbytes = (int)read(0, buffer, BUFFER_LEN)) >= 0)
         return (nbytes);
     ft_putstr("Read error.");
     return (-1);
 }
+
+void    block_read(int *fd)
+{
+        int     flags = fcntl(*fd, F_GETFL, 0);
+        fcntl(*fd, F_SETFL, flags & (~O_NONBLOCK));
+}
+
+void    unblock_read(int *fd)
+{
+        int     flags = fcntl(*fd, F_GETFL, 0);
+        fcntl(*fd, F_SETFL, flags | O_NONBLOCK);
+}
+
 
 int     ft_strncmp(const char *s1, const char *s2, size_t len)
 {
