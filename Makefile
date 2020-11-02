@@ -11,7 +11,7 @@ BIN_DIR=bin
 OBJS=$(SRCS:%.c=$(BIN_DIR)/%.o)
 HEADERS=$(addprefix $(INC_DIR)/, $(INCLUDES))
 
-CFLAGS=-Wextra -Wall -Werror
+CFLAGS=-Wextra -Wall
 
 all: $(NAME)
 	@echo Done.
